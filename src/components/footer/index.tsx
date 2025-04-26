@@ -20,11 +20,20 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Navigation</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="/aboutus" className="hover:text-white transition">About Us</a></li>
-            <li><a href="/books" className="hover:text-white transition">Books</a></li>
-            <li><a href="/libraries" className="hover:text-white transition">Libraries</a></li>
-            <li><a href="/#" className="hover:text-white transition">FAQ</a></li>
-          </ul>
+  <li>
+    <Link href="/aboutus" className="hover:text-white transition">About Us</Link>
+  </li>
+  <li>
+    <Link href="/books" className="hover:text-white transition">Books</Link>
+  </li>
+  <li>
+    <Link href="/libraries" className="hover:text-white transition">Libraries</Link>
+  </li>
+  <li>
+    <Link href="/#" className="hover:text-white transition">FAQ</Link>
+  </li>
+</ul>
+
         </div>
 
         {/* Contact */}

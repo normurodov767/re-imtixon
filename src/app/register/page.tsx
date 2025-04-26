@@ -2,6 +2,7 @@
 import useAuth from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 
 function Login() {
     const {  error, loading, Register} = useAuth() 
@@ -12,9 +13,11 @@ function Login() {
     
     const router = useRouter();
     
-    if (localStorage.getItem("token")) {
-        router.push("/dashboard")
-    }
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            router.push("/dashboard");
+        }
+    }, [router]);
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
