@@ -6,7 +6,7 @@ import React from 'react';
 
 function Dashboard() {
   const { data,statusofuser, can_rent_books, location } = useFetch<User>('auth/profile/');
-  let router = useRouter();
+  const router = useRouter();
   
   if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
     router.push('/login');

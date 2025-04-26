@@ -16,7 +16,7 @@ function AboutUs() {
       <div className="bg-white p-10 rounded-3xl shadow-xl max-w-3xl text-center border border-rose-100">
         <h1 className="text-4xl font-bold text-rose-500 mb-4">📖 About Us</h1>
         <p className="text-rose-600 text-lg mb-6">
-          Welcome to our cozy digital library! We're passionate about making books accessible and enjoyable for everyone 💫
+          Welcome to our cozy digital library! We&rsquo;re passionate about making books accessible and enjoyable for everyone 💫
         </p>
         <div className="flex justify-around text-rose-700 text-lg font-medium">
           <div>
