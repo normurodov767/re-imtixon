@@ -1,6 +1,8 @@
 'use client';
 import useFetch from '@/hooks/useFetch';
 import { useParams, useRouter } from 'next/navigation';
+import { Book } from '@/interface/User';
+
 import React from 'react';
 
 // Импорти интерфейсы (предполагается, что они у тебя в '@/interface/LibraryDetail.ts')
@@ -60,7 +62,7 @@ function LibraryDetail() {
         <h2 className="text-xl font-semibold text-rose-800 mb-4">Books in Library</h2>
         {Array.isArray(books) && books.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {books.map((book:any) => (
+            {books.map((book: Book) => (
               <div
                 key={book.id}
                 className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-all duration-300"
