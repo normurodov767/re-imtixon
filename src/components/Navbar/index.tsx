@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,10 +7,16 @@ import useFetch from "@/hooks/useFetch";
 import { User } from "@/interface/User";
 
 function Navbar() {
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState<string | null>(null);
   const pathname = usePathname();
-  const {  SetStatusOfUser } = useFetch<User>('auth/profile');
+  const { SetStatusOfUser } = useFetch<User>('auth/profile');
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setToken(localStorage.getItem('token'));
+    }
+  }, []);
 
   const logOut = () => {
     localStorage.removeItem("token");

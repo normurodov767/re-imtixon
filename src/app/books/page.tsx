@@ -3,9 +3,10 @@ import useFetch from '@/hooks/useFetch';
 import useFunction from '@/hooks/useFunction';
 import { Book } from '@/interface/books';
 import { useRouter } from 'next/navigation';
-import React, {  useState } from 'react';
+import React, {  useState, useEffect } from 'react';
 import { User } from '@/interface/User';
-function BooksDashboard() {
+
+export default function BooksDashboard() {
   const { data } = useFetch<Book[] | null>('books/books');
   const { data:datas } = useFetch<User>('auth/profile/');
   const router = useRouter();
@@ -17,6 +18,12 @@ function BooksDashboard() {
   const [publisher, setPublisher] = useState('');
   const { PostBook } = useFunction<Book | null>('books/add-books/');
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+      router.push('/login');
+    }
+  }, [router]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     PostBook(name, author, publisher);
@@ -27,10 +34,6 @@ function BooksDashboard() {
         book.name.toLowerCase().includes(search.toLowerCase()),
       )
     : [];
-
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">
@@ -92,7 +95,6 @@ function BooksDashboard() {
           </form>
         )}
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl">
         {filteredBooks.length > 0 ? (
           filteredBooks.map((book) => (
@@ -134,5 +136,3 @@ function BooksDashboard() {
     </div>
   );
 }
-
-export default BooksDashboard;
