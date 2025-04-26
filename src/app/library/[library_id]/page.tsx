@@ -17,8 +17,8 @@ function LibraryDetail() {
     router.push('/login');
   }
 
-  const books = data?.results.books;
-  const library = data?.results.library;
+  const books = data?.books;
+  const library = data?.library;
   
   if (loading) return <p className="text-center mt-10 text-gray-600">Loading...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">Error loading data.</p>;

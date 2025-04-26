@@ -10,7 +10,7 @@ function Login() {
     const [password, setPassword] = useState<string>("")
     const [address, setAddress] = useState<string>("")
     
-    let router = useRouter();
+    const router = useRouter();
     
     if (localStorage.getItem("token")) {
         router.push("/dashboard")

@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import React from 'react';
 import { FaInstagram, FaTelegramPlane, FaGithub, FaBook, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
@@ -40,9 +41,9 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
           <div className="flex gap-4 text-2xl text-zinc-400">
-            <a href="https://t.me/telegram" target="_blank" className="hover:text-white transition"><FaTelegramPlane /></a>
-            <a href="https://instagram.com/instagram" target="_blank" className="hover:text-white transition"><FaInstagram /></a>
-            <a href="https://github.com/github" target="_blank" className="hover:text-white transition"><FaGithub /></a>
+            <Link href="https://t.me/telegram" target="_blank" className="hover:text-white transition"><FaTelegramPlane /></Link>
+            <Link href="https://instagram.com/instagram" target="_blank" className="hover:text-white transition"><FaInstagram /></Link>
+            <Link href="https://github.com/github" target="_blank" className="hover:text-white transition"><FaGithub /></Link>
           </div>
         </div>
       </div>
