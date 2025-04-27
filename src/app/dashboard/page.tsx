@@ -2,17 +2,20 @@
 import useFetch from '@/hooks/useFetch';
 import { User } from '@/interface/User';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Dashboard() {
-  const { data,statusofuser, can_rent_books, location } = useFetch<User>('auth/profile/');
-  let router = useRouter();
-  
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
+  const { data, statusofuser, can_rent_books, location } = useFetch<User>('auth/profile/');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+      router.push('/login');
+    }
+  }, [router]); // добавляем router в зависимости
+
   console.log(data);
-  
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-rose-50 p-6">
       <div className="bg-white shadow-xl p-6 rounded-3xl w-96 text-center transition-all duration-300">
@@ -38,7 +41,6 @@ function Dashboard() {
           >
             Go to Books
           </button>
-
         </div>
       </div>
     </div>
@@ -46,3 +48,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

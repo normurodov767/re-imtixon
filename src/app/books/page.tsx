@@ -64,9 +64,11 @@ function BooksDashboard() {
     book.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
+  useEffect(() => {
+      if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+        router.push('/login');
+      }
+    }, [router]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">

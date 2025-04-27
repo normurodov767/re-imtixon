@@ -1,7 +1,7 @@
 'use client';
 import useFetch from '@/hooks/useFetch';
 import { useParams, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { LibraryDetailResponse } from '@/interface/User';
 
@@ -10,10 +10,11 @@ function LibraryDetail() {
   const router = useRouter();
   const { data, loading, error } = useFetch<LibraryDetailResponse>(`libraries/library/${library_id}`);
 
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
-
+ useEffect(() => {
+     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+       router.push('/login');
+     }
+   }, [router]);
   const books = data?.results.books;
   const library = data?.results.library;
   

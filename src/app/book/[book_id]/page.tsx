@@ -3,12 +3,12 @@ import useFetch from '@/hooks/useFetch';
 import useFunction from '@/hooks/useFunction';
 import { Book } from '@/interface/User';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function BookDetail() {
   const { book_id } = useParams();
   const router = useRouter();
-  const { data, loading, error,refetch } = useFetch<Book | null>(`books/book/${book_id}`);
+  const { data, loading, error, refetch } = useFetch<Book | null>(`books/book/${book_id}`);
   const [want, setWant] = useState<boolean>(false);
 
   const [name, setName] = useState('');
@@ -16,9 +16,11 @@ function BookDetail() {
   const [publisher, setPublisher] = useState('');
   const { EditBook } = useFunction<Book | null>(`books/book/${book_id}/`);
 
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+      router.push('/login');
+    }
+  }, [router]); // добавили useEffect
 
   if (loading) return <p className="text-center mt-10 text-rose-400">Loading...</p>;
   if (error || !data) return <p className="text-center mt-10 text-red-400">Book not found.</p>;
@@ -26,8 +28,8 @@ function BookDetail() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await EditBook(name, author, publisher);
-    await refetch(); 
-    setWant(false); 
+    await refetch();
+    setWant(false);
   };
 
   return (
@@ -92,3 +94,4 @@ function BookDetail() {
 }
 
 export default BookDetail;
+

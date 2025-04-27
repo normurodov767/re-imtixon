@@ -2,15 +2,17 @@
 import useFetch from '@/hooks/useFetch';
 import { User } from '@/interface/User';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Dashboard() {
   const { data,} = useFetch<User | null>('libraries/libraries');
   const router = useRouter();
 
-  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-    router.push('/login');
-  }
+ useEffect(() => {
+     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+       router.push('/login');
+     }
+   }, [router]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">

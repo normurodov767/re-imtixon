@@ -3,8 +3,7 @@ import React from "react";
 import "./style.css";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import useFetch from "@/hooks/useFetch";
-import { User } from "@/interface/User";
+
 
 function Navbar() {
   const token = localStorage.getItem('token');
