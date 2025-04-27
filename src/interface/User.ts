@@ -44,7 +44,7 @@ export interface Book {
     user: number | null;
     can_rent_books: boolean | null;
     total_books: number | null;
-  
+    SetStatusOfUser: boolean |null
     library: Library | null;
     books: Book[] | null;
   }

@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 function BookDetail() {
   const { book_id } = useParams();
   const router = useRouter();
-  const { data, loading, error } = useFetch<Book | null>(`books/book/${book_id}`);
+  const { data, loading, error,refetch } = useFetch<Book | null>(`books/book/${book_id}`);
   const [want, setWant] = useState<boolean>(false);
 
   const [name, setName] = useState('');
@@ -25,7 +25,9 @@ function BookDetail() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    EditBook(name, author, publisher);
+    await EditBook(name, author, publisher);
+    await refetch(); 
+    setWant(false); 
   };
 
   return (

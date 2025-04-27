@@ -1,19 +1,17 @@
 'use client'
 import useAuth from '@/hooks/useAuth'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 
-export default function Login() {
+function Login() {
     const {login,  loading} = useAuth() 
     const [phone, setPhone] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const router = useRouter();
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && localStorage.getItem("token")) {
-            router.push("/dashboard");
-        }
-    }, [router]);
+    let router = useRouter();
+    if (localStorage.getItem("token")) {
+        router.push("/dashboard")
+    }
+    
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,6 +47,4 @@ export default function Login() {
     )
 }
 
-
-
-
+export default Login

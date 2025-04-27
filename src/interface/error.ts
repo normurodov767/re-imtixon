@@ -1,1 +1,3 @@
-export type MyError = object;
+export interface errorinterface {
+    
+}
