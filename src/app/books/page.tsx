@@ -1,12 +1,12 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
-import { Book } from '@/interface/books';
-import { User } from '@/interface/User';
 import useFetch from '@/hooks/useFetch';
 import useFunction from '@/hooks/useFunction';
+import { Book } from '@/interface/books';
+import { useRouter } from 'next/navigation';
+import React, {  useState, useEffect } from 'react';
+import { User } from '@/interface/User';
 
-function BooksDashboard() {
+ function BooksDashboard() {
   const router = useRouter();
   const { data: userData } = useFetch<User>('auth/profile/');
   const { DeleteBook } = useFunction<Book | null>('books/book/');
@@ -19,6 +19,7 @@ function BooksDashboard() {
   const [name, setName] = useState('');
   const [author, setAuthor] = useState('');
   const [publisher, setPublisher] = useState('');
+
 
   const fetchBooks = async () => {
     try {
@@ -36,6 +37,12 @@ function BooksDashboard() {
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+      router.push('/login');
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,12 +70,6 @@ function BooksDashboard() {
   const filteredBooks = books.filter((book) =>
     book.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  useEffect(() => {
-      if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-        router.push('/login');
-      }
-    }, [router]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">
@@ -99,23 +100,23 @@ function BooksDashboard() {
             <input
               type="text"
               placeholder="Name"
+              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
             />
             <input
               type="text"
               placeholder="Author"
+              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
             />
             <input
               type="text"
               placeholder="Publisher"
+              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
               value={publisher}
               onChange={(e) => setPublisher(e.target.value)}
-              className="w-full p-3 border border-rose-200 rounded-xl placeholder:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
             />
 
             <button
@@ -127,7 +128,6 @@ function BooksDashboard() {
           </form>
         )}
       </div>
-
       {loading ? (
         <p className="text-rose-400 text-lg">Loading...</p>
       ) : (

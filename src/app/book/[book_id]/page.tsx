@@ -3,7 +3,7 @@ import useFetch from '@/hooks/useFetch';
 import useFunction from '@/hooks/useFunction';
 import { Book } from '@/interface/User';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function BookDetail() {
   const { book_id } = useParams();
@@ -16,11 +16,9 @@ function BookDetail() {
   const [publisher, setPublisher] = useState('');
   const { EditBook } = useFunction<Book | null>(`books/book/${book_id}/`);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-      router.push('/login');
-    }
-  }, [router]); // добавили useEffect
+  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+    router.push('/login');
+  }
 
   if (loading) return <p className="text-center mt-10 text-rose-400">Loading...</p>;
   if (error || !data) return <p className="text-center mt-10 text-red-400">Book not found.</p>;
@@ -94,4 +92,3 @@ function BookDetail() {
 }
 
 export default BookDetail;
-

@@ -39,12 +39,14 @@ export interface Book {
   
   export interface User {
     id: number | null;
-    name: string | null;
+    name: string ;
     address: string | null; 
     user: number | null;
     can_rent_books: boolean | null;
     total_books: number | null;
-    SetStatusOfUser: boolean |null
+    quantity_in_library: string;
+    publisher: string;
+    author:string;
     library: Library | null;
     books: Book[] | null;
   }

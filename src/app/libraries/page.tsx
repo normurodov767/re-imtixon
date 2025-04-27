@@ -2,17 +2,16 @@
 import useFetch from '@/hooks/useFetch';
 import { User } from '@/interface/User';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import { Library } from '@/interface/library';
+import React from 'react';
 
 function Dashboard() {
   const { data,} = useFetch<User | null>('libraries/libraries');
   const router = useRouter();
 
- useEffect(() => {
-     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-       router.push('/login');
-     }
-   }, [router]);
+  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+    router.push('/login');
+  }
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">
@@ -26,7 +25,7 @@ function Dashboard() {
       {/* Mап по библиотекам */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
         {Array.isArray(data) &&
-          data.map((library: any) => (
+          data.map((library: Library) => (
             <div
               key={library.id}
               className="bg-white border border-rose-100 p-6 rounded-3xl shadow-md hover:shadow-xl hover:bg-rose-50 transition-all duration-300 ease-in-out"

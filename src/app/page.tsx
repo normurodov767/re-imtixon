@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"; // добавляем useEffect
 import { useRouter } from "next/navigation";
 
 function Page() {
-  let router = useRouter();
+  const router = useRouter();
 
- useEffect(() => {
-     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-       router.push('/login');
-     }
-   }, [router]);
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("token")) {
+      router.push("/dashboard");
+    }
+  }, [router]); // useEffect следит за router
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
@@ -33,3 +33,4 @@ function Page() {
 }
 
 export default Page;
+

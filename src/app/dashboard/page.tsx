@@ -2,7 +2,7 @@
 import useFetch from '@/hooks/useFetch';
 import { User } from '@/interface/User';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'; 
 
 function Dashboard() {
   const { data, statusofuser, can_rent_books, location } = useFetch<User>('auth/profile/');
@@ -12,7 +12,7 @@ function Dashboard() {
     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
       router.push('/login');
     }
-  }, [router]); // добавляем router в зависимости
+  }, [router]); // dependency array, чтобы не было лишних вызовов
 
   console.log(data);
 
@@ -44,7 +44,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Dashboard;

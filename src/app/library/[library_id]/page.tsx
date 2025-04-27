@@ -1,8 +1,11 @@
 'use client';
 import useFetch from '@/hooks/useFetch';
 import { useParams, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import { Book } from '@/interface/User';
 
+import React from 'react';
+
+// Импорти интерфейсы (предполагается, что они у тебя в '@/interface/LibraryDetail.ts')
 import { LibraryDetailResponse } from '@/interface/User';
 
 function LibraryDetail() {
@@ -10,19 +13,19 @@ function LibraryDetail() {
   const router = useRouter();
   const { data, loading, error } = useFetch<LibraryDetailResponse>(`libraries/library/${library_id}`);
 
- useEffect(() => {
-     if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
-       router.push('/login');
-     }
-   }, [router]);
-  const books = data?.results.books;
-  const library = data?.results.library;
+  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+    router.push('/login');
+  }
+
+  const books = data?.books;
+  const library = data?.library;
   
   if (loading) return <p className="text-center mt-10 text-gray-600">Loading...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">Error loading data.</p>;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-rose-50 p-6">
+      {/* Блок с информацией о библиотеке */}
       {library && (
         <div className="bg-white shadow-xl p-6 rounded-3xl w-full max-w-md text-center mb-10">
           <h1 className="text-3xl font-bold text-rose-500 mb-4">Library Info</h1>
@@ -54,11 +57,12 @@ function LibraryDetail() {
         </div>
       )}
 
+      {/* Список книг */}
       <div className="w-full max-w-6xl">
         <h2 className="text-xl font-semibold text-rose-800 mb-4">Books in Library</h2>
         {Array.isArray(books) && books.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {books.map((book:any) => (
+            {books.map((book: Book) => (
               <div
                 key={book.id}
                 className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-all duration-300"
